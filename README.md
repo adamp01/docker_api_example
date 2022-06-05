@@ -28,6 +28,10 @@ depending on what overarching functionality they relate to.
 To deploy the API run:  
 `docker-compose -f docker-compose.yml up -d --build`
 
+## Running tests
+Test can be run with (Note: running tests on prod will clear out the database):  
+`docker-compose exec web python manage.py test`
+
 ## Creating and Seeding Database
 To create the database and tables run:  
 `docker-compose exec web python manage.py create_db`
@@ -39,10 +43,6 @@ You can verify that the database has been created and seeded by running:
 `docker-compose exec db psql --username=prod_user --dbname=prod_db`  
 `psql=# \c prod_db`  
 `prod_db=# select * from therapists;`  
-
-## Running tests
-Test can be run with:  
-`docker-compose exec web python manage.py test`
 
 ## Example requests
 To register to an auth token:  
@@ -58,7 +58,7 @@ Appointments can be filtered by passing one or more of the following query strin
 * type: The type of appointment. Must be one of one-off or consultation.
 
 Example:  
-`curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer {token}" "http://localhost:5000/get_appointments?start=2022-05-03&end=2022-06-06&specialisms=Addiction&type=one-off"`
+`curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer {token}" "http://localhost:5000/get_appointments?start=2022-05-03&end=2022-06-25&specialisms=Addiction&type=one-off"`
 
 An appointment can be added by sending a POST request to `/add_appointments` with all the following query string parameters:
 * start: The start datetime of the appointment. Format YYYY-MM-DD%20HH:mm
