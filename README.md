@@ -25,30 +25,30 @@ Finally, there will be a testing directory that will also be split out
 depending on what overarching functionality they relate to.
 
 ## Deploying
-To deploy the API run:
+To deploy the API run:  
 `docker-compose -f docker-compose.yml up -d --build`
 
 ## Creating and Seeding Database
-To create the database and tables run:
+To create the database and tables run:  
 `docker-compose exec web python manage.py create_db`
 
-To seed the database with some dummy data run:
+To seed the database with some dummy data run:  
 `docker-compose exec web python manage.py seed_db`
 
-You can verify that the database has been created and seeded by running:
-`docker-compose exec db psql --username=prod_user --dbname=prod_db`
-`psql=# \c prod_db`
-`prod_db=# select * from therapists;`
+You can verify that the database has been created and seeded by running:  
+`docker-compose exec db psql --username=prod_user --dbname=prod_db`  
+`psql=# \c prod_db`  
+`prod_db=# select * from therapists;`  
 
 ## Running tests
-Test can be run with:
+Test can be run with:  
 `docker-compose exec web python manage.py test`
 
 ## Example requests
-To register to an auth token:
+To register to an auth token:  
 `curl -X POST -H "Content-Type: application/json" --data "{\"email\": \"test@test.com\", \"password\": \"testpassword\"}" http://localhost:5000/register`
 
-To request an auth token:
+To request an auth token:  
 `curl -X POST -H "Content-Type: application/json" --data "{\"email\": \"test@test.com\", \"password\": \"testpassword\"}" http://localhost:5000/login`
 
 Appointments can be filtered by passing one or more of the following query string params:
@@ -57,7 +57,7 @@ Appointments can be filtered by passing one or more of the following query strin
 * specialisms: A comma separated list of specialisms that a Therapist has. Format: spec1,spec2,spec3
 * type: The type of appointment. Must be one of one-off or consultation.
 
-Example:
+Example:  
 `curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer {token}" "http://localhost:5000/get_appointments?start=2022-05-03&end=2022-06-06&specialisms=Addiction&type=one-off"`
 
 An appointment can be added by sending a POST request to `/add_appointments` with all the following query string parameters:
@@ -66,10 +66,10 @@ An appointment can be added by sending a POST request to `/add_appointments` wit
 * type: The type of appointment. Must be one of one-off or consultation.
 * therapist_id: The id of the therapist to assign the appointment to. Seed data will provide two therapists with id 1 and 2.
 
-Example:
+Example:  
 `curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {token}" "http://localhost:5000/add_appointment?start=2022-06-06%2012:41&duration=60&type=one-off&therapist_id=1"`
 
 ## Destroying
-To spin down the API and database run:
+To spin down the API and database run:  
 `docker-compose -f docker-compose.yml down -v`
 
