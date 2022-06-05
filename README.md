@@ -64,7 +64,10 @@ An appointment can be added by sending a POST request to `/add_appointments` wit
 * start: The start datetime of the appointment. Format YYYY-MM-DD%20HH:mm
 * duration: The duration of the appointment, in minutes.
 * type: The type of appointment. Must be one of one-off or consultation.
-* therapist_id: The id of the therapist to assign the appointment to. Seed data will provide two therapists with id 1 and 2.
+* therapist_id: The id of the therapist to assign the appointment to. Seed data will provide two therapists with id 1 and 2.  
+Notes:  
+* Appointment times for a therapist cannot overlap.
+* Appointment time must not be in the past.
 
 Example:  
 `curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer {token}" "http://localhost:5000/add_appointment?start=2022-06-06%2012:41&duration=60&type=one-off&therapist_id=1"`
