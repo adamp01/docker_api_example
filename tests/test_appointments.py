@@ -47,7 +47,7 @@ class AppointmentTestCase(unittest.TestCase):
     def test_get_appointments_by_date_range(self):
         """Test that appointments can be filtered by date range."""
         res, result = self.get_result(
-            "/get_appointments?start=2022-06-03&end=2022-06-06"
+            "/get_appointments?start=2022-06-03&end=2022-06-09"
         )
         self.assertEqual(result["message"], "Appointments found: 2")
         self.assertEqual(
@@ -88,7 +88,7 @@ class AppointmentTestCase(unittest.TestCase):
     def test_get_appointments_by_multiple(self):
         """Test that appointments can be filtered by a combination of filters."""
         res, result = self.get_result(
-            "/get_appointments?start=2022-06-03&end=2022-06-06&specialisms=Addiction&type=one-off"
+            "/get_appointments?start=2022-06-03&end=2022-06-12&specialisms=Addiction&type=one-off"
         )
         self.assertEqual(result["message"], "Appointments found: 1")
         self.assertEqual(
