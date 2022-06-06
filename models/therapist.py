@@ -9,13 +9,17 @@ mtm_assoc = db.Table(
     db.Column("specialism_id", db.ForeignKey("specialism.id"), primary_key=True),
 )
 
+
 class Therapist(db.Model):
-    '''Class defining the schema for the therapists table'''
-    __tablename__ = 'therapists'
+    """Class defining the schema for the therapists table"""
+
+    __tablename__ = "therapists"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
-    appointments = db.relationship('Appointment', back_populates='therapist')
-    specialisms = db.relationship('Specialism', secondary=mtm_assoc, back_populates='therapists')
+    appointments = db.relationship("Appointment", back_populates="therapist")
+    specialisms = db.relationship(
+        "Specialism", secondary=mtm_assoc, back_populates="therapists"
+    )
 
     def __init__(self, name):
         self.name = name
@@ -26,11 +30,14 @@ class Therapist(db.Model):
 
 
 class Specialism(db.Model):
-    '''Clas defining the schema for the specialisms table'''
-    __tablename___ = 'specialisms'
+    """Clas defining the schema for the specialisms table"""
+
+    __tablename___ = "specialisms"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), unique=True)
-    therapists = db.relationship('Therapist', secondary=mtm_assoc, back_populates='specialisms')
+    therapists = db.relationship(
+        "Therapist", secondary=mtm_assoc, back_populates="specialisms"
+    )
 
     def __init__(self, name):
         self.name = name

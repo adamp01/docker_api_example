@@ -1,4 +1,3 @@
-
 import jwt
 
 from datetime import datetime, timedelta
@@ -7,13 +6,15 @@ from flask import current_app as app
 
 from application import db
 
+
 class User(db.Model):
     """Class defining the schema for the users table"""
-    __tablename__ = 'users'
+
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    appointments = db.relationship('Appointment', back_populates='client')
+    appointments = db.relationship("Appointment", back_populates="client")
 
     def __repr__(self):
         return "User email: {0}".format(self.email)
@@ -32,15 +33,13 @@ class User(db.Model):
         try:
             # Set payload with expiration time
             payload = {
-                'exp': datetime.utcnow() + timedelta(minutes=5),
-                'iat': datetime.utcnow(),
-                'sub': self.email
+                "exp": datetime.utcnow() + timedelta(minutes=5),
+                "iat": datetime.utcnow(),
+                "sub": self.email,
             }
             # Create byte string token using payload and SECRET
             jwt_string = jwt.encode(
-                payload,
-                app.config.get('SECRET'),
-                algorithm='HS256'
+                payload, app.config.get("SECRET"), algorithm="HS256"
             )
             return jwt_string
         except TypeError:
@@ -52,8 +51,8 @@ class User(db.Model):
     def decode_token(token):
         """Decodes access token from Authorisation header."""
         try:
-            payload = jwt.decode(token, app.config.get('SECRET'), algorithms='HS256')
-            return payload['sub'].encode()
+            payload = jwt.decode(token, app.config.get("SECRET"), algorithms="HS256")
+            return payload["sub"].encode()
         except jwt.ExpiredSignatureError:
             return "Expired token. Please login to get new token."
         except jwt.InvalidTokenError:

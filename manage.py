@@ -28,7 +28,7 @@ def seed_db():
 def test():
     # Initialize the test suite
     loader = unittest.TestLoader()
-    suite  = unittest.TestSuite()
+    suite = unittest.TestSuite()
 
     # Add tests to the test suite
     suite.addTests(loader.loadTestsFromModule(test_appointments))

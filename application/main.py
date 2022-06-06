@@ -9,13 +9,14 @@ db = SQLAlchemy()
 migrate = Migrate()
 
 # Set up logging
-logging.config.fileConfig('./logging.ini', disable_existing_loggers=False)
+logging.config.fileConfig("./logging.ini", disable_existing_loggers=False)
 logger = logging.getLogger("main")
+
 
 def generate_response(msg, code, **kwargs):
     """Helper to generate a nicely formatted response."""
     response = {
-        'message': msg,
+        "message": msg,
     }
     for k, v in kwargs.items():
         response[k] = v
@@ -24,12 +25,14 @@ def generate_response(msg, code, **kwargs):
         logging.error(response)
     return make_response(jsonify(response)), code
 
+
 def create_app(config):
     """Factory to set up the flask app."""
     # Import the relevant models
     from models.appointment import Appointment
     from models.therapist import Therapist, Specialism
     from models.user import User
+
     # Set up and configure the app and db objects
     app = Flask(__name__)
     app.config.from_object(configurations[config])
@@ -39,5 +42,5 @@ def create_app(config):
     with app.app_context():
         import application.auth.routes
         import application.appointments.routes
-    
+
     return app

@@ -26,9 +26,19 @@ def insert_dummy_data(app):
         therapist = add_specialisms(therapist, specialisms)
         therapist.save()
         # Add some appointments
-        appointment = Appointment(datetime.now() + timedelta(minutes=1), timedelta(minutes=60), "one-off", therapist)
+        appointment = Appointment(
+            datetime.now() + timedelta(minutes=1),
+            timedelta(minutes=60),
+            "one-off",
+            therapist,
+        )
         appointment.save()
-        appointment = Appointment(datetime.now() + timedelta(days=14), timedelta(minutes=30), "consultation", therapist)
+        appointment = Appointment(
+            datetime.now() + timedelta(days=14),
+            timedelta(minutes=30),
+            "consultation",
+            therapist,
+        )
         appointment.save()
         # And another therapist
         therapist = Therapist("Jane Smith")
@@ -36,9 +46,19 @@ def insert_dummy_data(app):
         therapist = add_specialisms(therapist, specialisms)
         therapist.save()
         # Add some more appointments
-        appointment = Appointment(datetime.now()+ timedelta(minutes=1), timedelta(minutes=60), "one-off", therapist)
+        appointment = Appointment(
+            datetime.now() + timedelta(minutes=1),
+            timedelta(minutes=60),
+            "one-off",
+            therapist,
+        )
         appointment.save()
-        appointment = Appointment(datetime.now() + timedelta(days=3), timedelta(minutes=45), "consultation", therapist)
+        appointment = Appointment(
+            datetime.now() + timedelta(days=3),
+            timedelta(minutes=45),
+            "consultation",
+            therapist,
+        )
         appointment.save()
 
 
