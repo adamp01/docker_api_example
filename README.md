@@ -1,4 +1,4 @@
-# Initial Architectural Decisions
+## Initial Architectural Decisions
 Before writing any code I'm going to briefly decide on a basic structure.
 As we are wanting this to be a high availability and scalable API the 
 database and API should be distinct services. This will allow us to scale
@@ -23,6 +23,16 @@ environment variable.
 
 Finally, there will be a testing directory that will also be split out
 depending on what overarching functionality they relate to.
+
+Note:  
+As I am reviewing my work the next day, I've noticed two very obvious improvements. Firstly 
+the endpoints should probably be behind a version number, such as `/api/v1/get_appointments`.
+Otherwise what happens if we have a major refactor of the codebase at some point in the
+future? Our API will be at risk of breakage for many users. 
+Secondly, the checking for presence of at least one query string param in `/get_appointments`
+is redundant as we add default if the key isn't present. This would allow us to simply
+request all appointments by not supplying any query string params. Removing lines
+16-18 of application/appointments/routes.py would resolve this (and updating tests accordingly).
 
 ## Deploying
 To deploy the API run:  
