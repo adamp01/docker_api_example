@@ -24,7 +24,10 @@ environment variable.
 Finally, there will be a testing directory that will also be split out
 depending on what overarching functionality they relate to.
 
-Note:  
+Note:
+After looking even later, endpoint actions should be defined by the request method, i.e. GET, POST, PUT, PATCH, DELETE.
+Rather than `/get_appointments` the endpoint should be `/appointments` with varying behaviour
+if we match the method as GET etc.
 As I am reviewing my work the next day, I've noticed two very obvious improvements. Firstly 
 the endpoints should probably be behind a version number, such as `/api/v1/get_appointments`.
 Otherwise what happens if we have a major refactor of the codebase at some point in the
